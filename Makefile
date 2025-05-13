@@ -3,5 +3,3 @@ preprocessing:
 	python preprocessing.py  
 train:
 	python train.py  
-validate:
-	python validate.py 
