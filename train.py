@@ -4,7 +4,7 @@ import mlflow.sklearn
 from sklearn.datasets import load_diabetes
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import accuracy_score
 import pandas as pd
 from mlflow.models import infer_signature
 import sys
@@ -79,7 +79,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 model = DecisionTreeClassifier(criterion='gini',max_depth=18, min_samples_leaf=1, min_samples_split=2, random_state=0)
 model.fit(X_train, y_train)
 preds = model.predict(X_test)
-mse = mean_squared_error(y_test, preds)
+accuracy = accuracy_score(y_test, preds)
 
 # --- Iniciar Run de MLflow ---
 print(f"--- Debug: Iniciando run de MLflow en Experimento ID: {experiment_id} ---")
@@ -100,7 +100,7 @@ try:
         if "/home/manuelcastiblan/" in actual_artifact_uri:
              print(f"--- ¡¡¡ERROR CRÍTICO!!!: La URI del Artefacto del Run '{actual_artifact_uri}' TODAVÍA contiene la ruta local incorrecta! ---")
 
-        mlflow.log_metric("mse", mse)
+        mlflow.log_metric("accuracy", accuracy)
 
         # --- GUARDAR MODELO LOCALMENTE EN LA RAÍZ ---
         model_path_absolute = os.path.abspath("model.pkl") # Ruta absoluta en la raíz
@@ -119,7 +119,7 @@ try:
             sk_model=model,
             artifact_path="model" # Guarda dentro de la estructura de artefactos de MLflow
         )
-        print(f"✅ Modelo loggeado a MLflow y guardado localmente. MSE: {mse:.4f}")
+        print(f"✅ Modelo loggeado a MLflow y guardado localmente. Accuracy: {accuracy:.4f}")
 
 except Exception as e:
     print(f"\n--- ERROR durante la ejecución de MLflow ---")
