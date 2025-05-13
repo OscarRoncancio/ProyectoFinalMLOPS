@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/ProyectoFinalMLOPS/ProyectoFinalMLOPS/mlruns/e89831c0772e4d94b8df189acc40fc26/artifacts
+end_time: 1747096408277
+entry_point_name: ''
+experiment_id: '957061968868930437'
+lifecycle_stage: active
+run_id: e89831c0772e4d94b8df189acc40fc26
+run_name: merciful-trout-769
+run_uuid: e89831c0772e4d94b8df189acc40fc26
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747096405373
+status: 3
+tags: []
+user_id: runner
