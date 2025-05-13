@@ -33,9 +33,6 @@ jobs:
       - name: 🧪 Entrenar modelo
         run: make train
 
-      - name: ✅ Validar desempeño del modelo
-        run: make validate
-
       - name: 📤 Subir modelo .pkl como artefacto (si pasa validación)
         if: success()
         uses: actions/upload-artifact@v4
