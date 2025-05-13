@@ -11,15 +11,19 @@ import os
 THRESHOLD = 5000.0  # Ajusta este umbral según el MSE esperado para load_diabetes
 
 # --- Cargar el MISMO dataset que en train.py ---
-print("--- Debug: Cargando dataset load_diabetes ---")
-X, y = load_diabetes(return_X_y=True, as_frame=True)  # Usar as_frame=True si quieres DataFrames
+print("--- Debug: Cargando dataset de obesidad ---")
+dfObesity = pd.read_csv('Preprocessed_DataSet.csv')
+# Data set sin variable objetivo
+X = dfObesity.iloc[:, :-1]
+# Variable objetivo
+y = dfObesity.iloc[:, -1]
 
 # División de datos (usar los mismos datos que en entrenamiento no es ideal para validación real,
 # pero necesario aquí para que las dimensiones coincidan. Idealmente, tendrías un split dedicado
 # o usarías el X_test guardado del entrenamiento si fuera posible)
 # Para este ejemplo, simplemente re-dividimos para obtener un X_test con 10 features.
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)  # Añadir random_state para consistencia si es necesario
-print(f"--- Debug: Dimensiones de X_test: {X_test.shape} ---")  # Debería ser (n_samples, 10)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)  # Añadir random_state para consistencia si es necesario
+print(f"--- Debug: Dimensiones de X_test: {X_test.shape} ---")  
 
 # --- Cargar modelo previamente entrenado ---
 model_filename = "model.pkl"

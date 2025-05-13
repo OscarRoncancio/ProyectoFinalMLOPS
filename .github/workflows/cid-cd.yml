@@ -27,6 +27,9 @@ jobs:
           # No necesitas instalar mlflow, joblib, etc. aquí si ya están en requirements.txt
           # pip install mlflow joblib scikit-learn pandas
 
+      - name: ⚙️ Preprocesar datos
+        run: make preprocessing
+
       - name: 🧪 Entrenar modelo
         run: make train
 

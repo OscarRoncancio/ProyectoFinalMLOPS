@@ -10,6 +10,8 @@ from mlflow.models import infer_signature
 import sys
 import traceback
 import joblib
+from sklearn.model_selection import GridSearchCV
+from sklearn.tree import DecisionTreeClassifier
 
 print(f"--- Debug: Initial CWD: {os.getcwd()} ---")
 
@@ -68,9 +70,13 @@ if experiment_id is None:
     sys.exit(1)
 
 # --- Cargar Datos y Entrenar Modelo ---
-X, y = load_diabetes(return_X_y=True)
+dfObesity = pd.read_csv('Preprocessed_DataSet.csv')
+# Data set sin variable objetivo
+X = dfObesity.iloc[:, :-1]
+# Variable objetivo
+y = dfObesity.iloc[:, -1]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-model = LinearRegression()
+model = DecisionTreeClassifier(criterion='gini',max_depth=18, min_samples_leaf=1, min_samples_split=2, random_state=0)
 model.fit(X_train, y_train)
 preds = model.predict(X_test)
 mse = mean_squared_error(y_test, preds)
